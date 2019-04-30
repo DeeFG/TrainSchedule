@@ -34,109 +34,129 @@
                         <th scope="col">Destination</th>
                         <th scope="col">frequency</th>
                         <th scope="col">Next arrival</th>
-                        <th scope="col">MInutes Away</th>
+                        <th scope="col">Mnutes Away</th>
 
                     </tr>
                 </thead>
-                <tbody id="trainSection">
-        
-                    <!-- <tr>
-                        <!-- <td scope="row">2</td>
-                        <td>Jacob</td>
-                        <td>Thornton</td>
-                        <td>@fat</td>
-                        <td>@fat</td> -->
-                    </tr>
-             -->
-                </tbody>
+                <tbody id="trainSection"></tbody>
             </table>
         </div>
+
+
         <form>
             <div class="form-group">
-                <label for="exampleInputEmail1">Train Name</label>
-                <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
-                    placeholder="Enter email">
-                <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone
-                    else.</small>
+                <label for="TrainName">Train Name</label>
+                <input type="text" class="form-control" id="TrainName"
+                    placeholder="Enter Name of Train">
 
             </div>
+
             <div class="form-group">
-                <label for="exampleInputPassword1">Time</label>
-                <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+                <label for="Destination">Destination</label>
+                <input type="text" class="form-control" id="destination"
+                    placeholder="Enter Destination">
             </div>
-            <div class="form-group form-check">
-                <label class="form-check-label" for="exampleCheck1">Check me out</label>
-            </div>
+
+
             <div class="form-group">
-                <label for="exampleInputPassword1">Email</label>
-                <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+                <label for="Train Frequency">Train Frequency</label>
+                <input type="text" class="form-control" id="frequency"
+                    placeholder="Trian Frequency">
             </div>
+
+
             <div class="form-group">
-                <label for="exampleInputPassword1">Email</label>
-                <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+                <label for="First Train"> First Train</label>
+                <input type="text" class="form-control" id="FirstTrainofTheDay"
+                    placeholder="">
             </div>
-            <button type="submit" id="save" class="btn btn-primary">Submit</button>
+
+            <button type="submit" id="submit" class="btn btn-primary">Submit</button>
         </form>
 
     </container>
 
-
-
-
-
-
+    <script src="https://cdn.jsdelivr.net/momentjs/2.12.0/moment.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
-    <script>
 
+    <!-- <script src="https://www.gstatic.com/firebasejs/5.10.1/firebase.js"></script> -->
+<script>
 
-        $(document).ready(function () {
+//   // Initialize Firebase
+//   var config = {
+//     apiKey: "AIzaSyA-yO4EYkWmU1ODEcWEo8SNpErHt_c-qmE",
+//     authDomain: "click-counter-dfg.firebaseapp.com",
+//     databaseURL: "https://click-counter-dfg.firebaseio.com",
+//     projectId: "click-counter-dfg",
+//     storageBucket: "click-counter-dfg.appspot.com",
+//     messagingSenderId: "787072333236"
+//   };
 
-            ("#save").on("click", function (e) {
-                // use piush to add multiople trians  
-                var trainName = $("#train").val().trim();
-                var destiantion = $("#destination").val().trim();
-                var frequency = $("#frequency").val().trim();
-                var firstTime = $("#firstTime").val().trim();
-                //save the inputs to the firbse
-                database.ref().push({
-                    trainName: trainName,
-                    destiantion: destiantion,
-                    firstTime: firstTime,
-                    frequency: frequency
-                });
+//   firebase.initializeApp(config);
 
-                //ES^ version
-                // 
+//         $(document).ready(function () {
+            
+//             ("#submit").on("click", function (event) {
+               
+//                 var trainName = $("#trainName").val().trim();
+//                 var destination = $("#destination").val().trim();
+//                 var frequency = $("#frequency").val().trim();
+//                 var FirstTrainofTheDay = $("#FirstTrainofTheDay").val().trim();
+//                 //save the inputs to the firebase
+//                  // use piush to add multiople trians  
+//                 database.ref().push({
+//                     trainName: trainName,
+//                     destination: destination,
+//                     FirstTrainofTheDay: FirstTrainofTheDay,
+//                     frequency: frequency
+//                 });
 
-            })
+//             });
+            
+//             database.ref().on("child_added", function (snapshot){
+//                 var data = snapshot.val();
+//                 if(!data) {
+//                     return;
+//                 }
+//                 // calculate next arrival
+    
 
-
-            database.ref().on("child_added", function (snapshot){
-                var data = snapshot.val();
-                if(!data) {
-                    return;
-                }
-
-                // calculate next arrival
-                 // calculate minutes away 
-                var html ='
-                <tr>
-                        <td>${data.trainName}</td>
-                        <td>${data.destiantion}</td>
-                        <td>${data.frequency}</td>
-                        <td>${data.firstTime}</td>
-                        <td>${minutesAway}</td>
-                </tr>
-                        ';
-                        $("#trainSection")append(html);
+//                  // calculate minutes away 
+//                 // var html =
+//                 // <tr>
+//                 //         <td>${data.trainName}</td>
+//                 //         <td>${data.destination}</td>
+//                 //         <td>${data.frequency}</td>
+//                 //         <td>${data.FirstTrainofTheDay}</td>
+//                 //         <td>${minutesAway}</td>
+//                 // </tr>
+//                 //         ;
+//                 //         $("#trainSection")append(html);
                     
+//             // }
+//         });
 
-            }
+//     });
 
 
-        })
-    </script>
+        var frequency = 5;
+        var firstTrainofTheDay= "04:00";
+        var convertTime = moment(firstTrainofTheDay, "hh:mm").subtract(1,"years");
+        console.log(convertTime);
+
+        var currentTime = moment();
+        console.log("Current Time: " + moment(currentTime).format("hh:mm"));
+// gives moment flag
+        var timeDiff = moment().diff(moment(firstTrainofTheDay), "minutes");
+         console.log("Time difference:" + timeDiff);
+
+        var timeRemaining = timeDiff % frequency ;
+        console.log(timeRemaining);
+
+    // Time apart (remainder)
+
+
+</script>
 </body>
-
 </html>
