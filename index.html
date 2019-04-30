@@ -145,18 +145,25 @@
         var convertTime = moment(firstTrainofTheDay, "hh:mm").subtract(1,"years");
         console.log(convertTime);
 
-        var currentTime = moment();
+        var currentTime = moment().format();  
         console.log("Current Time: " + moment(currentTime).format("hh:mm"));
 // gives moment flag
-        var timeDiff = moment().diff(moment(firstTrainofTheDay), "minutes");
+    var timeDiff = moment().diff(moment(firstTrainofTheDay), "hh:mm");
          console.log("Time difference:" + timeDiff);
 
         var timeRemaining = timeDiff % frequency ;
-        console.log(timeRemaining);
+        console.log( timeRemaining);
+
+        var mintoNext = frequency - timeRemaining;
+        console.log("Minutes until next trian: " +mintoNext);
+
+        var nextTrain = moment().add(mintoNext, "minutes");
+        console.log("arrival time: " + moment(nextTrain).format("hh:mm"));
+
 
     // Time apart (remainder)
 
-
+.diff()
 </script>
 </body>
 </html>
