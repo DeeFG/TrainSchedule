@@ -46,29 +46,25 @@
         <form>
             <div class="form-group">
                 <label for="TrainName">Train Name</label>
-                <input type="text" class="form-control" id="TrainName"
-                    placeholder="Enter Name of Train">
+                <input type="text" class="form-control" id="TrainName" placeholder="Enter Name of Train">
 
             </div>
 
             <div class="form-group">
                 <label for="Destination">Destination</label>
-                <input type="text" class="form-control" id="destination"
-                    placeholder="Enter Destination">
+                <input type="text" class="form-control" id="destination" placeholder="Enter Destination">
             </div>
 
 
             <div class="form-group">
                 <label for="Train Frequency">Train Frequency</label>
-                <input type="text" class="form-control" id="frequency"
-                    placeholder="Trian Frequency">
+                <input type="text" class="form-control" id="frequency" placeholder="Trian Frequency">
             </div>
 
 
             <div class="form-group">
                 <label for="First Train"> First Train</label>
-                <input type="text" class="form-control" id="FirstTrainofTheDay"
-                    placeholder="">
+                <input type="text" class="form-control" id="FirstTrainofTheDay" placeholder="">
             </div>
 
             <button type="submit" id="submit" class="btn btn-primary">Submit</button>
@@ -81,81 +77,81 @@
 
 
     <!-- <script src="https://www.gstatic.com/firebasejs/5.10.1/firebase.js"></script> -->
-<script>
+    <script>
 
-//   // Initialize Firebase
-//   var config = {
-//     apiKey: "AIzaSyA-yO4EYkWmU1ODEcWEo8SNpErHt_c-qmE",
-//     authDomain: "click-counter-dfg.firebaseapp.com",
-//     databaseURL: "https://click-counter-dfg.firebaseio.com",
-//     projectId: "click-counter-dfg",
-//     storageBucket: "click-counter-dfg.appspot.com",
-//     messagingSenderId: "787072333236"
-//   };
+        //   // Initialize Firebase
+        //   var config = {
+        //     apiKey: "AIzaSyA-yO4EYkWmU1ODEcWEo8SNpErHt_c-qmE",
+        //     authDomain: "click-counter-dfg.firebaseapp.com",
+        //     databaseURL: "https://click-counter-dfg.firebaseio.com",
+        //     projectId: "click-counter-dfg",
+        //     storageBucket: "click-counter-dfg.appspot.com",
+        //     messagingSenderId: "787072333236"
+        //   };
 
-//   firebase.initializeApp(config);
+        //   firebase.initializeApp(config);
 
-//         $(document).ready(function () {
-            
-//             ("#submit").on("click", function (event) {
-               
-//                 var trainName = $("#trainName").val().trim();
-//                 var destination = $("#destination").val().trim();
-//                 var frequency = $("#frequency").val().trim();
-//                 var FirstTrainofTheDay = $("#FirstTrainofTheDay").val().trim();
-//                 //save the inputs to the firebase
-//                  // use piush to add multiople trians  
-//                 database.ref().push({
-//                     trainName: trainName,
-//                     destination: destination,
-//                     FirstTrainofTheDay: FirstTrainofTheDay,
-//                     frequency: frequency
-//                 });
+        //         $(document).ready(function () {
 
-//             });
-            
-//             database.ref().on("child_added", function (snapshot){
-//                 var data = snapshot.val();
-//                 if(!data) {
-//                     return;
-//                 }
-//                 // calculate next arrival
-    
+        //             ("#submit").on("click", function (event) {
 
-//                  // calculate minutes away 
-//                 // var html =
-//                 // <tr>
-//                 //         <td>${data.trainName}</td>
-//                 //         <td>${data.destination}</td>
-//                 //         <td>${data.frequency}</td>
-//                 //         <td>${data.FirstTrainofTheDay}</td>
-//                 //         <td>${minutesAway}</td>
-//                 // </tr>
-//                 //         ;
-//                 //         $("#trainSection")append(html);
-                    
-//             // }
-//         });
+        //                 var trainName = $("#trainName").val().trim();
+        //                 var destination = $("#destination").val().trim();
+        //                 var frequency = $("#frequency").val().trim();
+        //                 var FirstTrainofTheDay = $("#FirstTrainofTheDay").val().trim();
+        //                 //save the inputs to the firebase
+        //                  // use piush to add multiople trians  
+        //                 database.ref().push({
+        //                     trainName: trainName,
+        //                     destination: destination,
+        //                     FirstTrainofTheDay: FirstTrainofTheDay,
+        //                     frequency: frequency
+        //                 });
 
-//     });
+        //             });
+
+        //             database.ref().on("child_added", function (snapshot){
+        //                 var data = snapshot.val();
+        //                 if(!data) {
+        //                     return;
+        //                 }
+        //                 // calculate next arrival
+
+
+        //                  // calculate minutes away 
+        //                 // var html =
+        //                 // <tr>
+        //                 //         <td>${data.trainName}</td>
+        //                 //         <td>${data.destination}</td>
+        //                 //         <td>${data.frequency}</td>
+        //                 //         <td>${data.FirstTrainofTheDay}</td>
+        //                 //         <td>${minutesAway}</td>
+        //                 // </tr>
+        //                 //         ;
+        //                 //         $("#trainSection")append(html);
+
+        //             // }
+        //         });
+
+        //     });
 
 
         var frequency = 5;
-        var firstTrainofTheDay= "04:00";
-        var convertTime = moment(firstTrainofTheDay, "hh:mm").subtract(1,"years");
+        var firstTrainofTheDay = "04:00";
+        var convertTime = moment(firstTrainofTheDay, "hh:mm").subtract(1, "years");
         console.log(convertTime);
 
-        var currentTime = moment().format();  
+        var currentTime = moment().format();
         console.log("Current Time: " + moment(currentTime).format("hh:mm"));
-// gives moment flag
-    var timeDiff = moment().diff(moment(firstTrainofTheDay), "hh:mm");
-         console.log("Time difference:" + timeDiff);
+        // gives moment flag
+        var timeDiff = moment().diff(moment(firstTrainofTheDay, "hh:mm"));
+        console.log("Time difference:" + timeDiff);
 
-        var timeRemaining = timeDiff % frequency ;
-        console.log( timeRemaining);
+        var timeRemaining = timeDiff % frequency;
+        console.log(timeRemaining);
 
         var mintoNext = frequency - timeRemaining;
-        console.log("Minutes until next trian: " +mintoNext);
+        console.log("Minutes until next trian: " + mintoNext);
 
         var nextTrain = moment().add(mintoNext, "minutes");
         console.log("arrival time: " + moment(nextTrain).format("hh:mm"));
@@ -163,7 +159,8 @@
 
     // Time apart (remainder)
 
-.diff()
-</script>
+
+    </script>
 </body>
+
 </html>
