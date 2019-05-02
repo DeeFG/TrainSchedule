@@ -38,7 +38,9 @@
 
                     </tr>
                 </thead>
-                <tbody id="trainSection"></tbody>
+                <tbody><tr id="trainSection">
+
+                </tr></tbody>
             </table>
         </div>
 
@@ -73,67 +75,66 @@
     </container>
 
     <script src="https://cdn.jsdelivr.net/momentjs/2.12.0/moment.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+          <!-- The core Firebase JS SDK is always required and must be listed first -->
+<script src="https://www.gstatic.com/firebasejs/5.11.0/firebase-app.js"></script>
+
+<!-- TODO: Add SDKs for Firebase products that you want to use
+     https://firebase.google.com/docs/web/setup#config-web-app -->
+
+<script>
+  // Your web app's Firebase configuration
+  var firebaseConfig = {
+    apiKey: "AIzaSyCDdv3ny0LbK8XUBDlp7DWFwL0oOnoRtxk",
+    authDomain: "train-6e6d5.firebaseapp.com",
+    databaseURL: "https://train-6e6d5.firebaseio.com",
+    projectId: "train-6e6d5",
+    storageBucket: "train-6e6d5.appspot.com",
+    messagingSenderId: "732009440761",
+    appId: "1:732009440761:web:bf41354f090295dc"
+  };
+  // Initialize Firebase
+  firebase.initializeApp(firebaseConfig);
 
 
-    <!-- <script src="https://www.gstatic.com/firebasejs/5.10.1/firebase.js"></script> -->
-    <script>
+                $(document).ready(function () {
 
-        //   // Initialize Firebase
-        //   var config = {
-        //     apiKey: "AIzaSyA-yO4EYkWmU1ODEcWEo8SNpErHt_c-qmE",
-        //     authDomain: "click-counter-dfg.firebaseapp.com",
-        //     databaseURL: "https://click-counter-dfg.firebaseio.com",
-        //     projectId: "click-counter-dfg",
-        //     storageBucket: "click-counter-dfg.appspot.com",
-        //     messagingSenderId: "787072333236"
-        //   };
+                    ("#submit").on("click", function (event) {
 
-        //   firebase.initializeApp(config);
+                        var trainName = $("#trainName").val().trim();
+                        var destination = $("#destination").val().trim();
+                        var frequency = $("#frequency").val().trim();
+                        var FirstTrainofTheDay = $("#FirstTrainofTheDay").val().trim();
+                        //save the inputs to the firebase
+                         // use piush to add multiople trians  
+                        database.ref().push({
+                            trainName: trainName,
+                            destination: destination,
+                            FirstTrainofTheDay: FirstTrainofTheDay,
+                            frequency: frequency
+                        });
 
-        //         $(document).ready(function () {
+                    });
 
-        //             ("#submit").on("click", function (event) {
+                    database.ref().on("child_added", function (snapshot){
+                        var data = snapshot.val();
+                        if(!data) {
+                            return;
+                        }
+                        // calculate next arrival
+                        //  calculate minutes away 
+                        // var trainInfo =
+                        //         <td> ${data.trainName}</td> 
+                        //         <td> ${data.destination}</td> 
+                        //         <td> ${data.frequency}</td> 
+                        //         <td> ${data.FirstTrainofTheDay} </td> 
+                        //         <td> ${minutesAway} </td> ;
+                                
+                                $("#trainSection").append(trainInfo);
 
-        //                 var trainName = $("#trainName").val().trim();
-        //                 var destination = $("#destination").val().trim();
-        //                 var frequency = $("#frequency").val().trim();
-        //                 var FirstTrainofTheDay = $("#FirstTrainofTheDay").val().trim();
-        //                 //save the inputs to the firebase
-        //                  // use piush to add multiople trians  
-        //                 database.ref().push({
-        //                     trainName: trainName,
-        //                     destination: destination,
-        //                     FirstTrainofTheDay: FirstTrainofTheDay,
-        //                     frequency: frequency
-        //                 });
+                    
+                });
 
-        //             });
-
-        //             database.ref().on("child_added", function (snapshot){
-        //                 var data = snapshot.val();
-        //                 if(!data) {
-        //                     return;
-        //                 }
-        //                 // calculate next arrival
-
-
-        //                  // calculate minutes away 
-        //                 // var html =
-        //                 // <tr>
-        //                 //         <td>${data.trainName}</td>
-        //                 //         <td>${data.destination}</td>
-        //                 //         <td>${data.frequency}</td>
-        //                 //         <td>${data.FirstTrainofTheDay}</td>
-        //                 //         <td>${minutesAway}</td>
-        //                 // </tr>
-        //                 //         ;
-        //                 //         $("#trainSection")append(html);
-
-        //             // }
-        //         });
-
-        //     });
+            });
 
 
         var frequency = 5;
