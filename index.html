@@ -38,9 +38,11 @@
 
                     </tr>
                 </thead>
-                <tbody><tr id="trainSection">
+                <tbody>
+                    <tr id="trainSection">
 
-                </tr></tbody>
+                    </tr>
+                </tbody>
             </table>
         </div>
 
@@ -74,67 +76,78 @@
 
     </container>
 
+
+
+    <script src="https://code.jquery.com/jquery-3.4.1.js"
+        integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
+
     <script src="https://cdn.jsdelivr.net/momentjs/2.12.0/moment.min.js"></script>
-          <!-- The core Firebase JS SDK is always required and must be listed first -->
-<script src="https://www.gstatic.com/firebasejs/5.11.0/firebase-app.js"></script>
 
-<!-- TODO: Add SDKs for Firebase products that you want to use
-     https://firebase.google.com/docs/web/setup#config-web-app -->
-
-<script>
-  // Your web app's Firebase configuration
-  var firebaseConfig = {
-    apiKey: "AIzaSyCDdv3ny0LbK8XUBDlp7DWFwL0oOnoRtxk",
-    authDomain: "train-6e6d5.firebaseapp.com",
-    databaseURL: "https://train-6e6d5.firebaseio.com",
-    projectId: "train-6e6d5",
-    storageBucket: "train-6e6d5.appspot.com",
-    messagingSenderId: "732009440761",
-    appId: "1:732009440761:web:bf41354f090295dc"
-  };
-  // Initialize Firebase
-  firebase.initializeApp(firebaseConfig);
+    <script src="https://www.gstatic.com/firebasejs/5.11.0/firebase.js"></script>
 
 
-                $(document).ready(function () {
+    <script>
+        // Your web app's Firebase configuration
+        var firebaseConfig = {
+            apiKey: "AIzaSyCDdv3ny0LbK8XUBDlp7DWFwL0oOnoRtxk",
+            authDomain: "train-6e6d5.firebaseapp.com",
+            databaseURL: "https://train-6e6d5.firebaseio.com",
+            projectId: "train-6e6d5",
+            storageBucket: "train-6e6d5.appspot.com",
+            messagingSenderId: "732009440761",
+            appId: "1:732009440761:web:bf41354f090295dc"
+        };
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
 
-                    ("#submit").on("click", function (event) {
-                        // create variables for each input
-                        var trainName = $("#trainName").val().trim();
-                        var destination = $("#destination").val().trim();
-                        var frequency = $("#frequency").val().trim();
-                        var FirstTrainofTheDay = $("#FirstTrainofTheDay").val().trim();
-                        //save the inputs to the firebase
-                         // use piush to add multiople trians  
-                        database.ref().push({
-                            trainName: trainName,
-                            destination: destination,
-                            FirstTrainofTheDay: FirstTrainofTheDay,
-                            frequency: frequency
-                        });
 
-                    });
+        var database = firebase.database();
 
-                    database.ref().on("child_added", function (snapshot){
-                        var data = snapshot.val();
-                        if(!data) {
-                            return;
-                        }
-                        // calculate next arrival
-                        //  calculate minutes away 
-                        // var trainInfo =
-                        //         <td> ${data.trainName}</td> 
-                        //         <td> ${data.destination}</td> 
-                        //         <td> ${data.frequency}</td> 
-                        //         <td> ${data.FirstTrainofTheDay} </td> 
-                        //         <td> ${minutesAway} </td> ;
-                                
-                                $("#trainSection").append(trainInfo);
+        $(document).ready(function () {
 
-                    
+            $("#submit").on("click", function (event) {
+                // create variables for each input
+                var trainName = $("#trainName").val().trim();
+                var destination = $("#destination").val().trim();
+                var frequency = $("#frequency").val().trim();
+                var FirstTrainofTheDay = $("#FirstTrainofTheDay").val().trim();
+                //save the inputs to the firebase
+                // use piush to add multiople trians  
+                database.ref().push({
+                    trainName: trainName,
+                    destination: destination,
+                    FirstTrainofTheDay: FirstTrainofTheDay,
+                    frequency: frequency
                 });
 
             });
+
+            database.ref().on("child_added", function (snapshot) {
+                var data = snapshot.val();
+                if (!data) {
+                    return;
+                }
+                // calculate next arrival
+                //  calculate minutes ay 
+                var trainInfo =
+                    `<td> ${data.trainName}</td>` +
+                    `<td> ${data.destination}</td>` +
+                    `<td> ${data.frequency}</td>` +
+                    `<td> ${data.FirstTrainofTheDay} </td>` +
+                    `<td> ${minutesAway} </td> `;
+
+                var example = "<td>" + data.trainName + "</td>" +
+                              "<td>" + data.destination + "</td>";
+                
+                
+               var greetings = `Hello ${username}, how is it going?`;
+
+                $("#trainSection").append(trainInfo);
+
+
+            });
+
+        });
 
 
         var frequency = 5;
