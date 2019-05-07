@@ -34,7 +34,7 @@
                         <th scope="col">Destination</th>
                         <th scope="col">frequency</th>
                         <th scope="col">Next arrival</th>
-                        <th scope="col">Mnutes Away</th>
+                        <th scope="col">Minutes Away</th>
 
                     </tr>
                 </thead>
@@ -99,12 +99,8 @@
         };
         // Initialize Firebase
         firebase.initializeApp(firebaseConfig);
-
-
         var database = firebase.database();
-
         $(document).ready(function () {
-
             $("#submit").on("click", function (event) {
                 // create variables for each input
                 var trainName = $("#trainName").val().trim();
@@ -112,44 +108,42 @@
                 var frequency = $("#frequency").val().trim();
                 var FirstTrainofTheDay = $("#FirstTrainofTheDay").val().trim();
                 //save the inputs to the firebase
-                // use piush to add multiople trians  
+                // use piush to add multiople trians     var trainInfo =
+                    `<td> ${data.trainName}</td>` +
+                    `<td> ${data.destination}</td>` +
+                    `<td> ${data.frequency}</td>` +
+                    `<td> ${data.FirstTrainofTheDay} </td>` +
+                    `<td> ${minutesAway} </td> `;
+                    
                 database.ref().push({
                     trainName: trainName,
                     destination: destination,
                     FirstTrainofTheDay: FirstTrainofTheDay,
                     frequency: frequency
                 });
-
             });
-
-            database.ref().on("child_added", function (snapshot) {
-                var data = snapshot.val();
-                if (!data) {
-                    return;
-                }
+            // database.ref().on("child_added", function (snapshot) {
+            //     var data = snapshot.val();
+            //     if (!data) {
+            //         return;
+            //     }
                 // calculate next arrival
                 //  calculate minutes ay 
-                var trainInfo =
-                    `<td> ${data.trainName}</td>` +
-                    `<td> ${data.destination}</td>` +
-                    `<td> ${data.frequency}</td>` +
-                    `<td> ${data.FirstTrainofTheDay} </td>` +
-                    `<td> ${minutesAway} </td> `;
 
-                var example = "<td>" + data.trainName + "</td>" +
-                              "<td>" + data.destination + "</td>";
+
+
+                database.ref().on("child_added", function(childSnapshot) {
+              console.log(childSnapshot.val());
+
+             
+                // var example = "<td>" + data.trainName + "</td>" +
+                //               "<td>" + data.destination + "</td>";
                 
                 
                var greetings = `Hello ${username}, how is it going?`;
-
                 $("#trainSection").append(trainInfo);
-
-
             });
-
         });
-
-
         var frequency = 5;
         var firstTrainofTheDay = "04:00";
         var convertTime = moment(firstTrainofTheDay, "hh:mm").subtract(1, "years");
@@ -169,11 +163,7 @@
 
         var nextTrain = moment().add(mintoNext, "minutes");
         console.log("arrival time: " + moment(nextTrain).format("hh:mm"));
-
-
     // Time apart (remainder)
-
-
     </script>
 </body>
 
