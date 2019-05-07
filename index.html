@@ -50,7 +50,7 @@
         <form>
             <div class="form-group">
                 <label for="TrainName">Train Name</label>
-                <input type="text" class="form-control" id="TrainName" placeholder="Enter Name of Train">
+                <input type="text" class="form-control" id="trainName" placeholder="Enter Name of Train">
 
             </div>
 
@@ -78,57 +78,101 @@
 
 
 
-    <script src="https://code.jquery.com/jquery-3.4.1.js"
-        integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
 
+
+
+    <!-- The core Firebase JS SDK is always required and must be listed first -->
+    <script src="https://www.gstatic.com/firebasejs/6.0.0/firebase-app.js"></script>
+    <script src="https://code.jquery.com/jquery.js"></script>
     <script src="https://cdn.jsdelivr.net/momentjs/2.12.0/moment.min.js"></script>
 
-    <script src="https://www.gstatic.com/firebasejs/5.11.0/firebase.js"></script>
-
+    <!-- TODO: Add SDKs for Firebase products that you want to use
+     https://firebase.google.com/docs/web/setup#config-web-app -->
 
     <script>
         // Your web app's Firebase configuration
+
         var firebaseConfig = {
-            apiKey: "AIzaSyCDdv3ny0LbK8XUBDlp7DWFwL0oOnoRtxk",
-            authDomain: "train-6e6d5.firebaseapp.com",
-            databaseURL: "https://train-6e6d5.firebaseio.com",
-            projectId: "train-6e6d5",
-            storageBucket: "train-6e6d5.appspot.com",
-            messagingSenderId: "732009440761",
-            appId: "1:732009440761:web:bf41354f090295dc"
+            apiKey: "AIzaSyA-yO4EYkWmU1ODEcWEo8SNpErHt_c-qmE",
+            authDomain: "click-counter-dfg.firebaseapp.com",
+            databaseURL: "https://click-counter-dfg.firebaseio.com",
+            projectId: "click-counter-dfg",
+            storageBucket: "click-counter-dfg.appspot.com",
+            messagingSenderId: "787072333236",
+            appId: "1:787072333236:web:29149cc0f21d50b4"
         };
         // Initialize Firebase
         firebase.initializeApp(firebaseConfig);
 
-
         var database = firebase.database();
+
+
 
         $(document).ready(function () {
 
+
+
+
+
+            var trainName = "";
+            var destination = "";
+            var FirstTrainofTheDay = "";
+            var frequency = "";
+
             $("#submit").on("click", function (event) {
-                // create variables for each input
-                var trainName = $("#trainName").val().trim();
-                var destination = $("#destination").val().trim();
-                var frequency = $("#frequency").val().trim();
-                var FirstTrainofTheDay = $("#FirstTrainofTheDay").val().trim();
-                //save the inputs to the firebase
-                // use piush to add multiople trians  
+
+                event.preventDefault();
+                //take input and get its value
+                trainName = $("#trainName").val().trim();
+                destination = $("#destination").val().trim();
+                frequency = $("#frequency").val().trim();
+                FirstTrainofTheDay = $("#FirstTrainofTheDay").val().trim();
+                console.log(trainName);
+
+                // pushed data to data base
                 database.ref().push({
-                    trainName: trainName,
                     destination: destination,
                     FirstTrainofTheDay: FirstTrainofTheDay,
-                    frequency: frequency
+                    frequency: frequency,
+                    dateAdded: firebase.database.ServerValue.TIMESTAMP
                 });
+
+
+
+                var convertTime = moment(firstTrainofTheDay, "hh:mm").subtract(1, "years");
+                console.log(convertTime);
+
+                var currentTime = moment().format();
+                console.log("Current Time: " + moment(currentTime).format("hh:mm"));
+                // gives moment flag
+                var timeDiff = moment().diff(moment(firstTrainofTheDay, "hh:mm"));
+                console.log("Time difference:" + timeDiff);
+
+                var timeRemaining = timeDiff % frequency;
+                console.log(timeRemaining);
+
+                var mintoNext = frequency - timeRemaining;
+                console.log("Minutes until next trian: " + mintoNext);
+
+                var nextTrain = moment().add(mintoNext, "minutes");
+                console.log("arrival time: " + moment(nextTrain).format("hh:mm"))
 
             });
 
             database.ref().on("child_added", function (snapshot) {
-                var data = snapshot.val();
-                if (!data) {
-                    return;
-                }
-                // calculate next arrival
-                //  calculate minutes ay 
+            var data = snapshot.val();
+            if (!data) {
+                return;
+            }
+
+
+
+                console.log(childSnapshot.val().trainName);
+                console.log(childSnapshot.val().destination);
+                console.log(childSnapshot.val().FirstTrainofTheDay);
+                console.log(childSnapshot.val().frequency);
+
+
                 var trainInfo =
                     `<td> ${data.trainName}</td>` +
                     `<td> ${data.destination}</td>` +
@@ -136,11 +180,9 @@
                     `<td> ${data.FirstTrainofTheDay} </td>` +
                     `<td> ${minutesAway} </td> `;
 
-                var example = "<td>" + data.trainName + "</td>" +
-                              "<td>" + data.destination + "</td>";
-                
-                
-               var greetings = `Hello ${username}, how is it going?`;
+                // var example = "<td>" + data.trainName + "</td>" +
+                //     "<td>" + data.destination + "</td>";
+
 
                 $("#trainSection").append(trainInfo);
 
@@ -150,28 +192,14 @@
         });
 
 
-        var frequency = 5;
-        var firstTrainofTheDay = "04:00";
-        var convertTime = moment(firstTrainofTheDay, "hh:mm").subtract(1, "years");
-        console.log(convertTime);
-
-        var currentTime = moment().format();
-        console.log("Current Time: " + moment(currentTime).format("hh:mm"));
-        // gives moment flag
-        var timeDiff = moment().diff(moment(firstTrainofTheDay, "hh:mm"));
-        console.log("Time difference:" + timeDiff);
-
-        var timeRemaining = timeDiff % frequency;
-        console.log(timeRemaining);
-
-        var mintoNext = frequency - timeRemaining;
-        console.log("Minutes until next trian: " + mintoNext);
-
-        var nextTrain = moment().add(mintoNext, "minutes");
-        console.log("arrival time: " + moment(nextTrain).format("hh:mm"));
+        // var frequency = 5;
+        // var firstTrainofTheDay = "04:00";
 
 
     // Time apart (remainder)
+
+
+
 
 
     </script>
