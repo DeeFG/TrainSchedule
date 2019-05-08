@@ -74,6 +74,8 @@
             <button type="submit" id="submit" class="btn btn-primary">Submit</button>
         </form>
 
+        <div id="savedInfo"> </div>
+
     </container>
 
 
@@ -134,7 +136,7 @@
                     destination: destination,
                     firstTrainofTheDay: firstTrainofTheDay,
                     frequency: frequency,
-               });
+                });
 
                 database.ref().on("child_added", function (snapshot) {
                     var data = snapshot.val();
@@ -150,40 +152,40 @@
 
 
                     var convertTime = moment(firstTrainofTheDay, "hh:mm").subtract(1, "years");
-                console.log(convertTime);
+                    console.log(convertTime);
 
-                var currentTime = moment().format();
-                console.log("Current Time: " + moment(currentTime).format("hh:mm"));
+                    var currentTime = moment().format();
+                    console.log("Current Time: " + moment(currentTime).format("hh:mm"));
 
-                $("#trainSection").append(currentTime);
+                    $("#trainSection").append(currentTime);
 
-                // gives moment flag
-                var timeDiff = moment().diff(moment(firstTrainofTheDay, "hh:mm"));
-                console.log("Time difference:" + timeDiff);
-                $("#trainSection").append(timeDiff);
+                    // gives moment flag
+                    var timeDiff = moment().diff(moment(firstTrainofTheDay, "hh:mm"));
+                    console.log("Time difference:" + timeDiff);
+                    $("#trainSection").append(timeDiff);
 
-                var timeRemaining = timeDiff % frequency;
-                console.log(timeRemaining);
-                $("#trainSection").append(timeRemaining);
+                    var timeRemaining = timeDiff % frequency;
+                    console.log(timeRemaining);
+                    $("#trainSection").append(timeRemaining);
 
-                var mintoNext = frequency - timeRemaining;
-                console.log("Minutes until next trian: " + mintoNext);
-                $("#trainSection").append(mintoNext);
+                    var mintoNext = frequency - timeRemaining;
+                    console.log("Minutes until next trian: " + mintoNext);
+                    $("#trainSection").append(mintoNext);
 
-                var nextTrain = moment().add(mintoNext, "minutes");
-                console.log("arrival time: " + moment(nextTrain).format("hh:mm"))
-                $("#trainSection").append(nextTrain);
+                    var nextTrain = moment().add(mintoNext, "minutes");
+                    console.log("arrival time: " + moment(nextTrain).format("hh:mm"))
+                    $("#trainSection").append(nextTrain);
 
 
 
                     var trainInfo =
-               
+
                         `<td> ${data.trainName}</td>` +
                         `<td> ${data.destination}</td>` +
                         `<td> ${data.frequency}</td>` +
                         `<td> ${timeRemaining} </td>` +
                         `<td> ${mintoNext} </td>`
-                     ;
+                        ;
 
 
 
@@ -193,7 +195,15 @@
 
                 });
 
-                
+                dataRef.ref().orderByChild("dateAdded").limitToLast(1).on("child_added", function (snapshot) {
+                    // Change the HTML to reflect
+                    $("#savedinfo").text(snapshot.val().name);
+                    $("#savedinfo").text(snapshot.val().destination);
+                    $("#savedinfo").text(snapshot.val().frequency);
+                    $("#savedinfo").text(snapshot.val().comment);
+                });
+
+
             });
 
 
