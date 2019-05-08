@@ -22,7 +22,7 @@
     <container>
         <div class="row">
             <div class="col-md-12 jumbotron">
-                Train Schedule
+                Catch Your Commute
             </div>
         </div>
 
@@ -34,7 +34,7 @@
                         <th scope="col">Destination</th>
                         <th scope="col">frequency</th>
                         <th scope="col">Next arrival</th>
-                        <th scope="col">Mnutes Away</th>
+                        <th scope="col">Minutes Away</th>
 
                     </tr>
                 </thead>
@@ -79,11 +79,9 @@
 
 
 
-
-
     <!-- The core Firebase JS SDK is always required and must be listed first -->
-    <script src="https://www.gstatic.com/firebasejs/6.0.0/firebase-app.js"></script>
-    <script src="https://code.jquery.com/jquery.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/6.0.0/firebase.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/momentjs/2.12.0/moment.min.js"></script>
 
     <!-- TODO: Add SDKs for Firebase products that you want to use
@@ -111,9 +109,6 @@
         $(document).ready(function () {
 
 
-
-
-
             var trainName = "";
             var destination = "";
             var FirstTrainofTheDay = "";
@@ -126,68 +121,81 @@
                 trainName = $("#trainName").val().trim();
                 destination = $("#destination").val().trim();
                 frequency = $("#frequency").val().trim();
-                FirstTrainofTheDay = $("#FirstTrainofTheDay").val().trim();
+                firstTrainofTheDay = $("#FirstTrainofTheDay").val().trim();
                 console.log(trainName);
+                console.log(destination);
+                console.log(frequency);
+                console.log(firstTrainofTheDay);
+
 
                 // pushed data to data base
                 database.ref().push({
+                    trainName: trainName,
                     destination: destination,
-                    FirstTrainofTheDay: FirstTrainofTheDay,
+                    firstTrainofTheDay: firstTrainofTheDay,
                     frequency: frequency,
-                    dateAdded: firebase.database.ServerValue.TIMESTAMP
-                });
+               });
+
+                database.ref().on("child_added", function (snapshot) {
+                    var data = snapshot.val();
+                    // if (!data) {
+                    //     return;
+                    // }
 
 
+                    console.log(snapshot.val().trainName);
+                    console.log(snapshot.val().destination);
+                    console.log(snapshot.val().FirstTrainofTheDay);
+                    console.log(snapshot.val().frequency);
 
-                var convertTime = moment(firstTrainofTheDay, "hh:mm").subtract(1, "years");
+
+                    var convertTime = moment(firstTrainofTheDay, "hh:mm").subtract(1, "years");
                 console.log(convertTime);
 
                 var currentTime = moment().format();
                 console.log("Current Time: " + moment(currentTime).format("hh:mm"));
+
+                $("#trainSection").append(currentTime);
+
                 // gives moment flag
                 var timeDiff = moment().diff(moment(firstTrainofTheDay, "hh:mm"));
                 console.log("Time difference:" + timeDiff);
+                $("#trainSection").append(timeDiff);
 
                 var timeRemaining = timeDiff % frequency;
                 console.log(timeRemaining);
+                $("#trainSection").append(timeRemaining);
 
                 var mintoNext = frequency - timeRemaining;
                 console.log("Minutes until next trian: " + mintoNext);
+                $("#trainSection").append(mintoNext);
 
                 var nextTrain = moment().add(mintoNext, "minutes");
                 console.log("arrival time: " + moment(nextTrain).format("hh:mm"))
+                $("#trainSection").append(nextTrain);
 
+
+
+                    var trainInfo =
+               
+                        `<td> ${data.trainName}</td>` +
+                        `<td> ${data.destination}</td>` +
+                        `<td> ${data.frequency}</td>` +
+                        `<td> ${nextTrain} </td>` +
+                        `<td> ${mintoNext} </td>`
+                     ;
+
+
+
+                    $("#trainSection").append(trainInfo);
+
+
+
+                });
+
+                
             });
 
-            database.ref().on("child_added", function (snapshot) {
-            var data = snapshot.val();
-            if (!data) {
-                return;
-            }
-
-
-
-                console.log(childSnapshot.val().trainName);
-                console.log(childSnapshot.val().destination);
-                console.log(childSnapshot.val().FirstTrainofTheDay);
-                console.log(childSnapshot.val().frequency);
-
-
-                var trainInfo =
-                    `<td> ${data.trainName}</td>` +
-                    `<td> ${data.destination}</td>` +
-                    `<td> ${data.frequency}</td>` +
-                    `<td> ${data.FirstTrainofTheDay} </td>` +
-                    `<td> ${minutesAway} </td> `;
-
-                // var example = "<td>" + data.trainName + "</td>" +
-                //     "<td>" + data.destination + "</td>";
-
-
-                $("#trainSection").append(trainInfo);
-
-
-            });
 
         });
 
