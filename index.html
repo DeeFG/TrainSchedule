@@ -140,11 +140,7 @@
 
                 database.ref().on("child_added", function (snapshot) {
                     var data = snapshot.val();
-                    // if (!data) {
-                    //     return;
-                    // }
-
-
+                
                     console.log(snapshot.val().trainName);
                     console.log(snapshot.val().destination);
                     console.log(snapshot.val().FirstTrainofTheDay);
@@ -156,10 +152,9 @@
 
                     var currentTime = moment().format();
                     console.log("Current Time: " + moment(currentTime).format("hh:mm"));
-
                     $("#trainSection").append(currentTime);
 
-                    // gives moment flag
+                    
                     var timeDiff = moment().diff(moment(firstTrainofTheDay, "hh:mm"));
                     console.log("Time difference:" + timeDiff);
                     $("#trainSection").append(timeDiff);
@@ -208,16 +203,6 @@
 
 
         });
-
-
-        // var frequency = 5;
-        // var firstTrainofTheDay = "04:00";
-
-
-    // Time apart (remainder)
-
-
-
 
 
     </script>
