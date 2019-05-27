@@ -15,10 +15,7 @@
 
     <container>
         <div class="row">
-            <div class="col-md-12 jumbotron">
-                Catch Your Commute
-            </div>
-            <div id="time"></div>
+            <div class="col-md-12 jumbotron" id="time"> Catch Your Commute <br>Current Time </div>
         </div>
 
 
@@ -48,20 +45,19 @@
 
             <button type="submit" id="submit" class="btn btn-primary">Submit</button>
         </form>
+        <br><br>
         <div class="row">
             <table class="table">
                 <thead>
                     <tr>
-                        <th scope="col">Train</th>
+                        <th scope="col">Train </th>
                         <th scope="col">Destination </th>
                         <th scope="col">frequency</th>
                         <th scope="col">Next arrival</th>
                         <th scope="col">Minutes Away</th>
                     </tr>
                 </thead>
-                <tbody>
-                    <tr id="trainSection">
-                    </tr>
+                <tbody id="trainSection">
                 </tbody>
             </table>
         </div>
@@ -103,27 +99,27 @@
             var frequency = "";
 
             $("#submit").on("click", function (event) {
-                    event.preventDefault();
-                    //take input and get its value
-                    trainName = $("#trainName").val().trim();
-                    destination = $("#destination").val().trim();
-                    frequency = $("#frequency").val().trim();
-                    firstTrainofTheDay = $("#FirstTrainofTheDay").val().trim();
-                    console.log(trainName);
-                    console.log(destination);
-                    console.log(frequency);
-                    console.log(firstTrainofTheDay);
+                event.preventDefault();
+                //take input and get its value
+                trainName = $("#trainName").val().trim();
+                destination = $("#destination").val().trim();
+                frequency = $("#frequency").val().trim();
+                firstTrainofTheDay = $("#FirstTrainofTheDay").val().trim();
+                console.log(trainName);
+                console.log(destination);
+                console.log(frequency);
+                console.log(firstTrainofTheDay);
 
 
-                    // pushed data to data base
-                        database.ref().push({
-                        trainName: trainName,
-                        destination: destination,
-                        firstTrainofTheDay: firstTrainofTheDay,
-                        frequency: frequency,
-                    });
+                // pushed data to data base
+                database.ref().push({
+                    trainName: trainName,
+                    destination: destination,
+                    firstTrainofTheDay: firstTrainofTheDay,
+                    frequency: frequency,
+                });
 
-                    database.ref().on("child_added", function (snapshot) {
+                database.ref().on("child_added", function (snapshot) {
                     var data = snapshot.val();
 
                     var convertTime = moment(firstTrainofTheDay, "hh:mm").subtract(1, "years");
@@ -131,8 +127,7 @@
 
                     var currentTime = moment().format();
                     console.log("Current Time: " + moment(currentTime).format("hh:mm"));
-                    $("#time").append(currentTime);
-
+                   $("#time").append(currentTime);
 
                     var timeDiff = moment().diff(moment(firstTrainofTheDay, "hh:mm"));
                     console.log("Time difference:" + timeDiff);
@@ -168,14 +163,14 @@
 
                 });
 
-                // dataRef.ref().orderByChild("dateAdded").limitToLast(10).on("child_added", function (snapshot) {
-                //     // Change the HTML to reflect
-                //     $("#savedinfo").append(snapshot.val().name);
-                //     $("#savedinfo").append(snapshot.val().destination);
-                //     $("#savedinfo").append(snapshot.val().frequency);
-                //     $("#savedinfo").append(snapshot.val().nextTrain);
-                //     $("#savedinfo").append(snapshot.val().mintoNext);
-                // });
+                dataRef.ref().orderByChild("dateAdded").limitToLast(10).on("child_added", function (snapshot) {
+                    // Change the HTML to reflect
+                    $("#savedinfo").append(snapshot.val().name);
+                    $("#savedinfo").append(snapshot.val().destination);
+                    $("#savedinfo").append(snapshot.val().frequency);
+                    $("#savedinfo").append(snapshot.val().nextTrain);
+                    $("#savedinfo").append(snapshot.val().mintoNext);
+                });
 
 
             });
