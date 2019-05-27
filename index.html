@@ -15,7 +15,7 @@
 
     <container>
         <div class="row">
-            <div class="col-md-12 jumbotron" id="time"> Catch Your Commute <br>Current Time </div>
+            <div class="col-md-12 jumbotron" id=""> Catch Your Commute <br>Current Time </div>
         </div>
 
 
@@ -119,19 +119,19 @@
                     frequency: frequency,
                 });
 
-                database.ref().on("child_added", function (snapshot) {
+                database.ref().orderByChild("dateAdded").limitToLast(5).on("child_added", function (snapshot) {
                     var data = snapshot.val();
 
                     var convertTime = moment(firstTrainofTheDay, "hh:mm").subtract(1, "years");
                     console.log(convertTime);
 
-                    var currentTime = moment().format();
+                    var currentTime = moment().format('MMMM Do YYYY, h:mm:ss a');
                     console.log("Current Time: " + moment(currentTime).format("hh:mm"));
                    $("#time").append(currentTime);
 
-                    var timeDiff = moment().diff(moment(firstTrainofTheDay, "hh:mm"));
+                    var timeDiff = moment().diff(moment(firstTrainofTheDay, "h:mm:ss a"));
                     console.log("Time difference:" + timeDiff);
-                    $("#trainSection").append(timeDiff);
+                    // $("#trainSection").append(timeDiff);
 
                     var timeRemaining = timeDiff % frequency;
                     console.log(timeRemaining);
@@ -143,7 +143,7 @@
 
                     var nextTrain = moment().add(mintoNext, "minutes");
                     console.log("arrival time: " + moment(nextTrain).format("hh:mm"))
-                    $("#trainSection").append(nextTrain);
+                    // $("#trainSection").append(nextTrain);
 
                     console.log(snapshot.val().trainName);
                     console.log(snapshot.val().destination);
@@ -162,16 +162,6 @@
                     $("#trainSection").append(trainInfo);
 
                 });
-
-                dataRef.ref().orderByChild("dateAdded").limitToLast(10).on("child_added", function (snapshot) {
-                    // Change the HTML to reflect
-                    $("#savedinfo").append(snapshot.val().name);
-                    $("#savedinfo").append(snapshot.val().destination);
-                    $("#savedinfo").append(snapshot.val().frequency);
-                    $("#savedinfo").append(snapshot.val().nextTrain);
-                    $("#savedinfo").append(snapshot.val().mintoNext);
-                });
-
 
             });
 

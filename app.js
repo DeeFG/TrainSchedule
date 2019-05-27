@@ -40,7 +40,7 @@
                 frequency: frequency,
             });
 
-            database.ref().on("child_added", function (snapshot) {
+            database.ref().limitToLast(10).on("child_added", function (snapshot) {
                 var data = snapshot.val();
 
                 var convertTime = moment(firstTrainofTheDay, "hh:mm").subtract(1, "years");
