@@ -78,13 +78,11 @@
 
     </container>
 
-
-
-
     <!-- The core Firebase JS SDK is always required and must be listed first -->
     <script src="https://www.gstatic.com/firebasejs/6.0.0/firebase.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/momentjs/2.12.0/moment.min.js"></script>
+    <script scr=" "></script>
 
     <!-- TODO: Add SDKs for Firebase products that you want to use
      https://firebase.google.com/docs/web/setup#config-web-app -->
@@ -175,28 +173,29 @@
 
                     var trainInfo =
 
-                        `<td> ${data.trainName}</td>` +
+                        `<tr> <td> ${data.trainName}</td>` +
                         `<td> ${data.destination}</td>` +
                         `<td> ${data.frequency}</td>` +
                         `<td> ${nextTrain} </td>` +
-                        `<td> ${mintoNext} </td>`
+                        `<td> ${mintoNext} </td> </tr>`
                         ;
 
 
-                    $("#trainSection").html(trainInfo);
+                    $("#trainSection").append(trainInfo);
 
 
 
 
                 });
 
-                // dataRef.ref().orderByChild("dateAdded").limitToLast(1).on("child_added", function (snapshot) {
-                //     // Change the HTML to reflect
-                //     $("#savedinfo").text(snapshot.val().name);
-                //     $("#savedinfo").text(snapshot.val().destination);
-                //     $("#savedinfo").text(snapshot.val().frequency);
-                //     $("#savedinfo").text(snapshot.val().comment);
-                // });
+                dataRef.ref().orderByChild("dateAdded").limitToLast(1).on("child_added", function (snapshot) {
+                    // Change the HTML to reflect
+                    $("#savedinfo").append(snapshot.val().name);
+                    $("#savedinfo").append(snapshot.val().destination);
+                    $("#savedinfo").append(snapshot.val().frequency);
+                    $("#savedinfo").append(snapshot.val().nextTrain);
+                    $("#savedinfo").append(snapshot.val().mintoNext);
+                });
 
 
             });
