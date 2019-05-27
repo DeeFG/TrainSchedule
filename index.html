@@ -49,6 +49,7 @@
             <table class="table">
                 <thead>
                     <tr>
+                        <th scope="col"><i class="material-icons">send</i></th>
                         <th scope="col">Train </th>
                         <th scope="col">Destination </th>
                         <th scope="col">frequency</th>
@@ -167,7 +168,7 @@
 
                     var currentTime = moment().format('MMMM Do YYYY, h:mm:ss a');
                     console.log("Current Time: " + moment(currentTime).format("hh:mm"));
-                   $("#time").append(currentTime);
+                   //$("#time").append(currentTime);
 
                     var timeDiff = moment().diff(moment(firstTrainofTheDay, "h:mm:ss a"));
                     console.log("Time difference:" + timeDiff);
@@ -175,11 +176,11 @@
 
                     var timeRemaining = timeDiff % frequency;
                     console.log(timeRemaining);
-                    $("#trainSection").append(timeRemaining);
+                   // $("#trainSection").append(timeRemaining);
 
                     var mintoNext = frequency - timeRemaining;
                     console.log("Minutes until next trian: " + mintoNext);
-                    $("#trainSection").append(mintoNext);
+                    //$("#trainSection").append(mintoNext);
 
                     var nextTrain = moment().add(mintoNext, "minutes");
                     console.log("arrival time: " + moment(nextTrain).format("hh:mm"))
@@ -193,6 +194,7 @@
                     var trainInfo =
 
                         `<tr> 
+                        <td> <i class="material-icons">send</i></td>
                         <td> ${data.trainName}</td> 
                         <td> ${data.destination}</td> 
                         <td> ${data.frequency}</td> 
@@ -204,7 +206,6 @@
                 });
 
             });
-
 
         });
 
