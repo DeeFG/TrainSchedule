@@ -11,13 +11,6 @@
     <title>TRAIN SCHEDULE</title>
 </head>
 
-
-<style>
-    html {
-        margin: 30px;
-    }
-</style>
-
 <body>
 
     <container>
@@ -25,6 +18,7 @@
             <div class="col-md-12 jumbotron">
                 Catch Your Commute
             </div>
+            <div id="time"></div>
         </div>
 
 
@@ -58,17 +52,15 @@
             <table class="table">
                 <thead>
                     <tr>
-                        <th scope="col">Train Name</th>
-                        <th scope="col">Destination</th>
+                        <th scope="col">Train</th>
+                        <th scope="col">Destination </th>
                         <th scope="col">frequency</th>
                         <th scope="col">Next arrival</th>
                         <th scope="col">Minutes Away</th>
-
                     </tr>
                 </thead>
                 <tbody>
                     <tr id="trainSection">
-
                     </tr>
                 </tbody>
             </table>
@@ -83,7 +75,7 @@
     <script src="https://www.gstatic.com/firebasejs/6.0.0/firebase.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/momentjs/2.12.0/moment.min.js"></script>
-    <script scr=" "></script>
+    <script scr="app.js"></script>
 
     <!-- TODO: Add SDKs for Firebase products that you want to use
      https://firebase.google.com/docs/web/setup#config-web-app -->
@@ -102,58 +94,46 @@
         };
         // Initialize Firebase
         firebase.initializeApp(firebaseConfig);
-
         var database = firebase.database();
 
-
-
         $(document).ready(function () {
-
-
             var trainName = "";
             var destination = "";
             var FirstTrainofTheDay = "";
             var frequency = "";
 
             $("#submit").on("click", function (event) {
+                    event.preventDefault();
+                    //take input and get its value
+                    trainName = $("#trainName").val().trim();
+                    destination = $("#destination").val().trim();
+                    frequency = $("#frequency").val().trim();
+                    firstTrainofTheDay = $("#FirstTrainofTheDay").val().trim();
+                    console.log(trainName);
+                    console.log(destination);
+                    console.log(frequency);
+                    console.log(firstTrainofTheDay);
 
-                event.preventDefault();
-                //take input and get its value
-                trainName = $("#trainName").val().trim();
-                destination = $("#destination").val().trim();
-                frequency = $("#frequency").val().trim();
-                firstTrainofTheDay = $("#FirstTrainofTheDay").val().trim();
-                console.log(trainName);
-                console.log(destination);
-                console.log(frequency);
-                console.log(firstTrainofTheDay);
 
+                    // pushed data to data base
+                        database.ref().push({
+                        trainName: trainName,
+                        destination: destination,
+                        firstTrainofTheDay: firstTrainofTheDay,
+                        frequency: frequency,
+                    });
 
-                // pushed data to data base
-                database.ref().push({
-                    trainName: trainName,
-                    destination: destination,
-                    firstTrainofTheDay: firstTrainofTheDay,
-                    frequency: frequency,
-                });
-
-                database.ref().on("child_added", function (snapshot) {
+                    database.ref().on("child_added", function (snapshot) {
                     var data = snapshot.val();
-                
-                    console.log(snapshot.val().trainName);
-                    console.log(snapshot.val().destination);
-                    console.log(snapshot.val().FirstTrainofTheDay);
-                    console.log(snapshot.val().frequency);
-
 
                     var convertTime = moment(firstTrainofTheDay, "hh:mm").subtract(1, "years");
                     console.log(convertTime);
 
                     var currentTime = moment().format();
                     console.log("Current Time: " + moment(currentTime).format("hh:mm"));
-                    $("#trainSection").append(currentTime);
+                    $("#time").append(currentTime);
 
-                    
+
                     var timeDiff = moment().diff(moment(firstTrainofTheDay, "hh:mm"));
                     console.log("Time difference:" + timeDiff);
                     $("#trainSection").append(timeDiff);
@@ -170,28 +150,32 @@
                     console.log("arrival time: " + moment(nextTrain).format("hh:mm"))
                     $("#trainSection").append(nextTrain);
 
-
+                    console.log(snapshot.val().trainName);
+                    console.log(snapshot.val().destination);
+                    // console.log(snapshot.val().FirstTrainofTheDay);
+                    console.log(snapshot.val().frequency);
 
                     var trainInfo =
 
-                        `<tr> <td> ${data.trainName}</td> +
-                        <td> ${data.destination}</td> +
-                        <td> ${data.frequency}</td> +
-                        <td> ${nextTrain} </td> +
+                        `<tr> 
+                        <td> ${data.trainName}</td> 
+                        <td> ${data.destination}</td> 
+                        <td> ${data.frequency}</td> 
+                        <td> ${nextTrain} </td> 
                         <td> ${mintoNext} </td> </tr>`;
 
                     $("#trainSection").append(trainInfo);
 
                 });
 
-                dataRef.ref().orderByChild("dateAdded").limitToLast(1).on("child_added", function (snapshot) {
-                    // Change the HTML to reflect
-                    $("#savedinfo").append(snapshot.val().name);
-                    $("#savedinfo").append(snapshot.val().destination);
-                    $("#savedinfo").append(snapshot.val().frequency);
-                    $("#savedinfo").append(snapshot.val().nextTrain);
-                    $("#savedinfo").append(snapshot.val().mintoNext);
-                });
+                // dataRef.ref().orderByChild("dateAdded").limitToLast(10).on("child_added", function (snapshot) {
+                //     // Change the HTML to reflect
+                //     $("#savedinfo").append(snapshot.val().name);
+                //     $("#savedinfo").append(snapshot.val().destination);
+                //     $("#savedinfo").append(snapshot.val().frequency);
+                //     $("#savedinfo").append(snapshot.val().nextTrain);
+                //     $("#savedinfo").append(snapshot.val().mintoNext);
+                // });
 
 
             });
