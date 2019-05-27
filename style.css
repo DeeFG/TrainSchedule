@@ -1,0 +1,18 @@
+html{
+    background: orange;
+    color:red;
+    
+
+}
+.jumbotron{
+    color: red;
+    background: orange;
+    font-size: 60px;
+
+}
+
+#submit{
+    background: orange;
+    color: red;
+
+}
