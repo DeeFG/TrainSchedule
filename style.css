@@ -1,11 +1,17 @@
 body{
     text-align: center;
 font-size: 30px;
+background: url("mbta-red-line-map_761147.png");
+background-size: cover;
+background-repeat: no-repeat;
 
 }
+.container{
+    background: white;
+    opacity: .1 ;
+}
 .jumbotron{
-    color: red;
-    background: orange;
+
     font-size: 60px;
     width: 100%;
 
