@@ -16,12 +16,12 @@
     <container>
 
         <div class="row">
-            <div class="col-md-12 jumbotron" id=""> Catch Your Commute <br>Current Time <br> 
-           
+            <div class="col-md-12 jumbotron" > Catch Your Commute 
+           <div class="" id="time"></div>
             </div> 
         </div>
         <br><br>
-        <div class="row">
+        <div class="row jumbotron">
             <div class="col s12">
                 <form>
                     <div class="form-group">
@@ -31,21 +31,21 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="Destination"><i class="material-icons">add_location</i>Destination</label> <br>
-                        <input type="text" class="form-control validate"" id=" destination"
+                        <label for="Destination"><i class="material-icons">location_on</i>Destination</label> <br>
+                        <input type="text" class="form-control validate"" id="destination"
                             placeholder="Boston">
                     </div>
 
 
                     <div class="form-group">
                         <label for="Train Frequency"> <i class="material-icons">timer</i>Frequency (mins)</label> <br>
-                        <input type="text" class="form-control validate"" id=" frequency" placeholder="5">
+                        <input type="text" class="form-control validate"" id="frequency" placeholder="5">
                     </div>
 
 
                     <div class="form-group">
                         <label for="First Train"> <i class="material-icons">watch_later</i>First Train</label> <br>
-                        <input type="text" class="form-control validate"" id=" FirstTrainofTheDay"
+                        <input type="text" class="form-control validate"" id="FirstTrainofTheDay"
                             placeholder="0600">
                     </div>
 
@@ -68,7 +68,7 @@
                             <th scope="col">Next arrival</th>
                             <th scope="col">Minutes Away</th>
                         </tr>
-                    </thead>
+                  
                     <tr>
                         <th scope="col"><i class="material-icons"></i></th>
                         <th scope="col"><i class="material-icons">train</i></th>
@@ -125,6 +125,9 @@
             var destination = "";
             var FirstTrainofTheDay = "";
             var frequency = "";
+
+            var currentTime = moment().format('LL, LT');
+                $("#time").append(currentTime);
 
             $("#submit").on("click", function (event) {
                 event.preventDefault();
@@ -190,7 +193,7 @@
                         <td> ${mintoNext} </td> </tr>`;
 
                     $("#trainSection").append(trainInfo);
-                    $("#trainSection").val("").trim();
+                 
 
                 });
 
