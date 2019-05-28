@@ -1,25 +1,28 @@
 
 body{
-    background: url("assests/images/architecture-city-commute-1769337.jpg");
+    color: black;
+    background-image: url("assests/images/architecture-city-commute-1769337.jpg");
     background-size: cover;
     background-repeat: no-repeat;
     background-attachment: fixed;
     text-align: center;
-    border: 20px solid grey;
     margin: auto;    
     text-align: center;
-    font-size: 20px;
+    font-size: 30px;
     
 }
-.container{
-    background: white;
-    text-align: center;
 
+.container{
+
+    text-align: center;
   
+}
+i{
+    color: black;
 }
 .jumbotron{
     background: rgb(204, 204, 204); 
-    background: rgba(204, 204, 204, 0.7);
+    background: rgba(237, 236, 236, 0.7);
     font-size: 60px;
     width: 100%;
 
@@ -30,9 +33,10 @@ body{
 }
 
 #submit{
+    color: black;
     font-size: 15px;
     background: rgb(204, 204, 204); 
-    background: rgba(204, 204, 204, 0.7);
+    background: rgba(237, 236, 236, 0.7);
     padding: 2px;
 
 }
@@ -43,18 +47,22 @@ body{
     width: 100%;
     border: 1px solid #ddd;
     background: rgb(204, 204, 204); /* Fallback for older browsers without RGBA-support */
-    background: rgba(204, 204, 204, 0.7);
+       background: rgba(237, 236, 236, 0.7);
+
 
 }
 #trainSection{
     background: rgb(204, 204, 204); /* Fallback for older browsers without RGBA-support */
-    background: rgba(204, 204, 204, 0.7);
+       background: rgba(237, 236, 236, 0.7);
+
 
 }
 form{
     font-size: 12px;
+    color: black;
     background: rgb(204, 204, 204); 
-    background: rgba(204, 204, 204, 0.7);
+       background: rgba(237, 236, 236, 0.7);
+
     
 }
 
@@ -70,7 +78,8 @@ th{
     font-size: 20px;
    
     background: rgb(204, 204, 204); /* Fallback for older browsers without RGBA-support */
-    background: rgba(204, 204, 204, 0.7);
+       background: rgba(237, 236, 236, 0.7);
+
   
 }
 
