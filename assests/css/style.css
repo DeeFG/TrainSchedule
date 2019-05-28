@@ -1,17 +1,14 @@
 body{
     text-align: center;
-    font-size: 30px;
-    background: url("architecture-buildings-city-327345 (1).jpg");
+    font-size: 20px;
+background-image: url("assests/images/architecture-city.jpg")
     background-size: cover;
     background-repeat: no-repeat;
     background-attachment: fixed;
     text-align: center;
     border: 20px solid grey;
-    margin:    40px 150px;
+    margin: auto;
     
-
-
-
 }
 .container{
     background: white;
@@ -19,7 +16,7 @@ body{
 
   
 }
-.jumbotron, .run{
+.jumbotron{
     background: rgb(204, 204, 204); 
     background: rgba(204, 204, 204, 0.7);
     font-size: 60px;
@@ -35,13 +32,18 @@ body{
     font-size: 15px;
     background: rgb(204, 204, 204); 
     background: rgba(204, 204, 204, 0.7);
+    padding: 2px;
 
 }
 .table{
     text-align: center;
+    border-collapse: collapse;
+    border-spacing: 0;
+    width: 100%;
+    border: 1px solid #ddd;
     background: rgb(204, 204, 204); /* Fallback for older browsers without RGBA-support */
     background: rgba(204, 204, 204, 0.7);
-    width: 100%;
+
 }
 #trainSection{
     background: rgb(204, 204, 204); /* Fallback for older browsers without RGBA-support */
@@ -63,12 +65,33 @@ tbody{
    
 }
 th{
-    text-align: center;
+    
     font-size: 20px;
-    padding: 10px;
+   
     background: rgb(204, 204, 204); /* Fallback for older browsers without RGBA-support */
     background: rgba(204, 204, 204, 0.7);
+  
 }
+
+th, td {
+    text-align: center;
+    padding: 8px;
+  }
+  
+  tr:nth-child(even){
+     
+
+      background: rgb(204, 204, 204); /* Fallback for older browsers without RGBA-support */
+      background: rgba(245, 235, 235, 0.7);
+    }
+    tr:nth-child(odd){
+     
+
+        background: rgb(204, 204, 204); /* Fallback for older browsers without RGBA-support */
+        background: rgba(203, 125, 125, 0.7);
+      }
+
+
 .form-group{
     display: inline-block;
 

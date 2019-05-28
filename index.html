@@ -3,37 +3,35 @@
 
 <head>
     <!--Import Google Icon Font-->
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <!--Import materialize.css-->
-    <link type="text/css" rel="stylesheet" href="css/materialize.min.css" media="screen,projection" />
-    <!--Let browser know website is optimized for mobile-->
+   
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!-- <link type="text/css" rel="stylesheet" href="css/materialize.min.css" media="screen,projection" /> -->
+     <link rel="stylesheet" href="./assests/css/reset.css">
+    <link rel="stylesheet" href="./assests/css/style.css">
+    
+   
 </head>
 
 <body>
-
-    <container>
-
-        <div class="row">
-            <div class="col-md-12 jumbotron" > Catch Your Commute 
-           <div class="" id="time"></div>
-            </div> 
+  <container>
+    <div class="row">
+        <div class="col-md-12 jumbotron"> Catch Your Commute
+            <div class="" id="time"></div>
         </div>
-        <br><br>
-        <div class="row jumbotron">
+    </div>
+  
+        <div class="row">
             <div class="col s12">
                 <form>
                     <div class="form-group">
                         <label for="TrainName"><i class="material-icons">train</i>Train</label> <br>
-                        <input type="text" class="form-control validate" id="trainName"
-                            placeholder="Green Line">
+                        <input type="text" class="form-control validate" id="trainName" placeholder="Green Line">
                     </div>
 
                     <div class="form-group">
                         <label for="Destination"><i class="material-icons">location_on</i>Destination</label> <br>
-                        <input type="text" class="form-control validate"" id="destination"
-                            placeholder="Boston">
+                        <input type="text" class="form-control validate"" id="destination" placeholder="Boston">
                     </div>
 
 
@@ -45,11 +43,10 @@
 
                     <div class="form-group">
                         <label for="First Train"> <i class="material-icons">watch_later</i>First Train</label> <br>
-                        <input type="text" class="form-control validate"" id="FirstTrainofTheDay"
-                            placeholder="0600">
+                        <input type="text" class="form-control validate"" id="FirstTrainofTheDay" placeholder="0600">
                     </div>
 
-                    <button type="submit" id="submit" class="btn btn-primary">Go<i
+                    <button type="submit" id="submit" class="btn btn-primary"> Let Go! <i
                             class="material-icons">send</i></button>
                 </form>
             </div>
@@ -57,34 +54,34 @@
         <br><br>
         <div class="row">
             <div class="col s12">
-            <table class="table">
-                <thead>
+                <table class="table">
                     <thead>
-                        <tr>
-                            <th scope="col"></th>
-                            <th scope="col">Train </th>
-                            <th scope="col">Destination </th>
-                            <th scope="col">Frequency</th>
-                            <th scope="col">Next arrival</th>
-                            <th scope="col">Minutes Away</th>
-                        </tr>
-                  
-                    <tr>
-                        <th scope="col"><i class="material-icons"></i></th>
-                        <th scope="col"><i class="material-icons">train</i></th>
-                        <th scope="col"><i class="material-icons">location_on</i> </th>
-                        <th scope="col"><i class="material-icons">timer</i></th>
-                        <th scope="col"><i class="material-icons">next_week</i></th>
-                        <th scope="col"><i class="material-icons">timelapse</i></th>
-                    </tr>
-                </thead>
-                <tbody id="trainSection">
+                        <thead>
+                            <tr>
+                                <th scope="col"></th>
+                                <th scope="col">Train </th>
+                                <th scope="col">Destination </th>
+                                <th scope="col">Frequency</th>
+                                <th scope="col">Next arrival</th>
+                                <th scope="col">Minutes Away</th>
+                            </tr>
+
+                            <tr>
+                                <th scope="col"><i class="material-icons"></i></th>
+                                <th scope="col"><i class="material-icons">train</i></th>
+                                <th scope="col"><i class="material-icons">location_on</i> </th>
+                                <th scope="col"><i class="material-icons">timer</i></th>
+                                <th scope="col"><i class="material-icons">next_week</i></th>
+                                <th scope="col"><i class="material-icons">timelapse</i></th>
+                            </tr>
+                        </thead>
+                    <tbody id="trainSection">
 
 
-                </tbody>
-            </table>
+                    </tbody>
+                </table>
+            </div>
         </div>
-    </div>
 
 
 
@@ -98,7 +95,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/momentjs/2.12.0/moment.min.js"></script>
     <script type="text/javascript" src="js/materialize.min.js"></script>
-    <script scr="app.js"></script>
+    <script scr="./assests/javascript/app.js"></script>
 
     <!-- TODO: Add SDKs for Firebase products that you want to use
      https://firebase.google.com/docs/web/setup#config-web-app -->
@@ -127,7 +124,7 @@
             var frequency = "";
 
             var currentTime = moment().format('LL, LT');
-                $("#time").append(currentTime);
+            $("#time").append(currentTime);
 
             $("#submit").on("click", function (event) {
                 event.preventDefault();
@@ -193,7 +190,7 @@
                         <td> ${mintoNext} </td> </tr>`;
 
                     $("#trainSection").append(trainInfo);
-                 
+
 
                 });
 
