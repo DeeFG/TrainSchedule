@@ -14,52 +14,66 @@
 <body>
 
     <container>
-        
+
         <div class="row">
             <div class="col-md-12 jumbotron" id=""> Catch Your Commute <br>Current Time </div>
         </div>
         <br><br>
-<div class="row"> 
-        <div class="col s12"> 
-        <form>
-            <div class="form-group">
-                <label for="TrainName">Train Name</label>
-                <input type="text" class="form-control validate" id="trainName" placeholder="Enter Name of Train">
+        <div class="row">
+            <div class="col s12">
+                <form>
+                    <div class="form-group">
+                        <label for="TrainName"><i class="material-icons">train</i>Train</label> <br>
+                        <input type="text" class="form-control validate" id="trainName"
+                            placeholder="Green Line">
+                    </div>
 
+                    <div class="form-group">
+                        <label for="Destination"><i class="material-icons">add_location</i>Destination</label> <br>
+                        <input type="text" class="form-control validate"" id=" destination"
+                            placeholder="Boston">
+                    </div>
+
+
+                    <div class="form-group">
+                        <label for="Train Frequency"> <i class="material-icons">timer</i>Frequency (mins)</label> <br>
+                        <input type="text" class="form-control validate"" id=" frequency" placeholder="5">
+                    </div>
+
+
+                    <div class="form-group">
+                        <label for="First Train"> <i class="material-icons">watch_later</i>First Train</label> <br>
+                        <input type="text" class="form-control validate"" id=" FirstTrainofTheDay"
+                            placeholder="0600">
+                    </div>
+
+                    <button type="submit" id="submit" class="btn btn-primary">Go<i
+                            class="material-icons">send</i></button>
+                </form>
             </div>
-
-            <div class="form-group">
-                <label for="Destination">Destination</label>
-                <input type="text" class="form-control validate"" id="destination" placeholder="Enter Destination">
-            </div>
-
-
-            <div class="form-group">
-                <label for="Train Frequency">Train Frequency</label>
-                <input type="text" class="form-control validate"" id="frequency" placeholder="Trian Frequency">
-            </div>
-
-
-            <div class="form-group">
-                <label for="First Train"> First Train</label>
-                <input type="text" class="form-control validate"" id="FirstTrainofTheDay" placeholder="First Train">
-            </div>
-
-            <button type="submit" id="submit" class="btn btn-primary">Submit</button>
-        </form>
-    </div>
-    </div>
+        </div>
         <br><br>
         <div class="row">
+            <div class="col s12">
             <table class="table">
                 <thead>
+                    <thead>
+                        <tr>
+                            <th scope="col"></th>
+                            <th scope="col">Train </th>
+                            <th scope="col">Destination </th>
+                            <th scope="col">Frequency</th>
+                            <th scope="col">Next arrival</th>
+                            <th scope="col">Minutes Away</th>
+                        </tr>
+                    </thead>
                     <tr>
+                        <th scope="col"><i class="material-icons"></i></th>
                         <th scope="col"><i class="material-icons">train</i></th>
-                        <th scope="col">Train </th>
-                        <th scope="col">Destination </th>
-                        <th scope="col">Frequency</th>
-                        <th scope="col">Next arrival</th>
-                        <th scope="col">Minutes Away</th>
+                        <th scope="col"><i class="material-icons">location_on</i> </th>
+                        <th scope="col"><i class="material-icons">timer</i></th>
+                        <th scope="col"><i class="material-icons">next_week</i></th>
+                        <th scope="col"><i class="material-icons">timelapse</i></th>
                     </tr>
                 </thead>
                 <tbody id="trainSection">
@@ -68,6 +82,7 @@
                 </tbody>
             </table>
         </div>
+    </div>
 
 
 
@@ -130,10 +145,6 @@
                     frequency: frequency,
                 });
 
-                // $(".form-control").val("").trim();
-                // $(".form-control").val("").trim();
-                // $(".form-control").val("").trim();
-                // $(".form-control").val("").trim();
 
 
                 database.ref().orderByChild("dateAdded").limitToLast(5).on("child_added", function (snapshot) {
@@ -168,8 +179,8 @@
                     console.log(snapshot.val().frequency);
 
                     var trainInfo =
-                  
-                `<tr>   <td class="collection-item avatar"> <i class="material-icons">train</i></td>
+
+                        `<tr>   <td class="collection-item avatar"> <i class="material-icons">train</i></td>
                         <td> ${data.trainName} </td> 
                         <td> ${data.destination} </td> 
                         <td> ${data.frequency} </td> 
@@ -177,6 +188,7 @@
                         <td> ${mintoNext} </td> </tr>`;
 
                     $("#trainSection").append(trainInfo);
+                    $("#trainSection").val("").trim();
 
                 });
 
