@@ -1,17 +1,20 @@
 body{
     text-align: center;
 font-size: 30px;
-background: url("mbta-red-line-map_761147.png");
+background: url("architecture-buildings-city-327345 (1).jpg");
 background-size: cover;
 background-repeat: no-repeat;
+
 
 }
 .container{
     background: white;
-    opacity: .1 ;
+    text-align: center;
+    background: rgb(204, 204, 204); /* Fallback for older browsers without RGBA-support */
+    background: rgba(204, 204, 204, 0.7);
 }
 .jumbotron{
-
+background: orange;
     font-size: 60px;
     width: 100%;
 
@@ -23,15 +26,20 @@ background-repeat: no-repeat;
 }
 .table{
     text-align: center;
+    background: rgb(204, 204, 204); /* Fallback for older browsers without RGBA-support */
+    background: rgba(204, 204, 204, 0.7);
 }
 form{
  font-size: 12px;
+ background: white;
     
 }
 
 tbody{
     text-align: center;
     font-size: 12px;
+    background: white;
+
    
 }
 th{
