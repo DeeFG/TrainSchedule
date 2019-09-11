@@ -9,7 +9,7 @@
 * CSS 
 * GitHub pages
 * Javascript 
+* JQuery
 * Moment.Js
-* Axios
 * Bootstrap
 
